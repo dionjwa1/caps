@@ -1,16 +1,21 @@
 'use strict';
 
-const vendors = require('../models/vendors.js');
-const events = require('./events/events.js');
-const handleDrivers = require('./models/drivers.js');
-const handleVendors = require('./models/vendors.js');
+const events = require('../events/events.js');
+require('../models/drivers.js');
+require('../models/vendors.js');
 
-events.on('sweat', handleDrivers);
-events.on('sunglasses', handleVendors);
+events.on('order', (payLoad) => {
+console.log(payLoad);
+// events.emit('order', payLoad)
+});
 
-const randomCustomer = new vendors.Vendor();
+events.on('delivered', (payLoad) => {
+  console.log(payLoad);
+  // events.emit('delivered', payLoad)
+  });
 
-setInterval(() => {
-  
-    events.emit('order', { order: randomCustomer });
-  }, 5000);
+  events.on('in-transit', (payLoad) => {
+    console.log(payLoad);
+    // events.emit('in-transit', payLoad)
+    });
+
