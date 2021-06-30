@@ -16,7 +16,7 @@ function pickedUp(payload) {
     console.log(`DRIVER: picked up ${payload.orderId}`);
 
     client.emit('in-transit', payload);
-  }, 1000);
+  }, 1500);
 
   setTimeout(() => {
 
