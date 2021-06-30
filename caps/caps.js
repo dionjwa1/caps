@@ -1,21 +1,28 @@
 'use strict';
 
-const events = require('../events/events.js');
+const io = require('socket.io');
+// const events = require('../events/events.js');
 require('../models/drivers.js');
 require('../models/vendors.js');
 
-events.on('order', (payLoad) => {
-console.log(payLoad);
-// events.emit('order', payLoad)
-});
+const server = io(3000);
 
-events.on('delivered', (payLoad) => {
-  console.log(payLoad);
-  // events.emit('delivered', payLoad)
-  });
+server.on('connection', (socket) => {
 
-  events.on('in-transit', (payLoad) => {
+  socket.on('pickup', (payLoad) => {
     console.log(payLoad);
-    // events.emit('in-transit', payLoad)
-    });
+    server.emit('pickup', payLoad)
+  });
+  
+  socket.on('delivered', (payLoad) => {
+    console.log(payLoad);
+    server.emit('delivered', payLoad)
+  });
+  
+  socket.on('in-transit', (payLoad) => {
+    console.log(payLoad);
+    server.emit('in-transit', payLoad)
+  });
+})
+
 
