@@ -1,7 +1,8 @@
 'use strict';
 
-const events = require('../events/events.js');
-
+// const events = require('../events/events.js');
+const io = require('socket.io-client');
+const client = io.connect('http://localhost:3000');
 
 // === === // pickup, wait 1 second // === === //
 function pickedUp(payload) {
@@ -14,7 +15,7 @@ function pickedUp(payload) {
     console.log(payload);
     console.log(`DRIVER: picked up ${payload.orderId}`);
 
-    events.emit('in-transit', payload);
+    client.emit('in-transit', payload);
   }, 1000);
 
   setTimeout(() => {
@@ -24,14 +25,14 @@ function pickedUp(payload) {
     console.log(payload);
     console.log(`DRIVER: delivered ${payload.orderId}`);
 
-    events.emit('delivered', payload);
+    client.emit('delivered', payload);
   }, 3000);
 }
 
-events.on('delivered', (payLoad) => {
+client.on('delivered', (payLoad) => {
   console.log('Thank You', payLoad.customerName);
 });
-events.on('order', pickedUp) 
+client.on('pickup', pickedUp) 
 
 // module.exports = () => {
 //   console.log('beginning drive');
