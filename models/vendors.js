@@ -15,8 +15,3 @@ setInterval(() => {
   client.emit('pickup', { customerName, address, orderId, storeName, storeId  });
 }, 5000);
 
-
-// module.exports = () => {
-//   console.log('beginning to vend');
-//   events.emit('vend');
-// }

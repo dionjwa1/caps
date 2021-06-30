@@ -34,7 +34,3 @@ client.on('delivered', (payLoad) => {
 });
 client.on('pickup', pickedUp) 
 
-// module.exports = () => {
-//   console.log('beginning drive');
-//   events.emit('drive');
-// }
